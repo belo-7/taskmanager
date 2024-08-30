@@ -29,7 +29,7 @@ const Task = () => {
           setTaskName("");
         })
         .catch((error) => {
-          console.error("Error adding task:", error);
+          console.error("Error adding a task:", error);
         });
     }
   };
@@ -71,7 +71,6 @@ const Task = () => {
         console.error("Error deleting task:", error);
       });
   };
-
 
   const completeTask = (id) => {
     const taskToComplete = tasks.find((taskManager) => taskManager.id === id);
