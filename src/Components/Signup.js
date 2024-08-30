@@ -12,6 +12,7 @@ export default function Signup() {
   });
 
   const [errors, setErrors] = useState({});
+  const [successMessage, setSuccessMessage] = useState(""); // State for success message
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,6 +53,13 @@ export default function Signup() {
         .post("http://localhost:8082/Signup", formData)
         .then((res) => {
           console.log("Registered successfully!");
+          setSuccessMessage("Registration successful!"); // Set success message
+          setFormData({
+            username: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+          }); // Clear form data
         })
         .catch((err) => {
           console.log("Error response:", err.response);
@@ -81,12 +89,17 @@ export default function Signup() {
       <p className="mt-4 mb-4 text-lg font-medium text-gray-500">
         Create your account
       </p>
+      {successMessage && (
+        <p className="text-green-500 mb-4">{successMessage}</p>
+      )}{" "}
+      {/* Success message display */}
       <form action="#" onSubmit={handleSubmit}>
         <div className="font-medium text-base">
           <input
             type="text"
             name="username"
             placeholder="User Name"
+            value={formData.username} // Set value to formData
             className="border border-gray-500 py-1 px-2 w-80"
             onChange={handleChange}
           />
@@ -100,6 +113,7 @@ export default function Signup() {
             type="email"
             name="email"
             placeholder="email"
+            value={formData.email} // Set value to formData
             className="border border-gray-500 py-1 px-2 w-80"
             onChange={handleChange}
           />
@@ -110,6 +124,7 @@ export default function Signup() {
             type="password"
             name="password"
             placeholder="password"
+            value={formData.password} // Set value to formData
             className="border border-gray-500 py-1 px-2 w-80"
             onChange={handleChange}
           />
@@ -122,6 +137,7 @@ export default function Signup() {
             type="password"
             name="confirmPassword"
             placeholder="Confirm Password"
+            value={formData.confirmPassword} // Set value to formData
             className="border border-gray-500 py-1 px-2 w-80"
             onChange={handleChange}
           />
@@ -139,7 +155,6 @@ export default function Signup() {
         </div>
         <div className="mt-8 flex justify-center items-center">
           <p className="flex font-medium text-base">Do you have an account?</p>
-
           <Link to="/" className="text-violet-500 text-base font-medium ml-3">
             <Button>Signin</Button>
           </Link>

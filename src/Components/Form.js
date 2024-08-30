@@ -48,16 +48,21 @@ export default function Form() {
       return;
     }
 
+    // Make sure the URL matches your back-end server's endpoint
     axios
-      .post("http://localhost:8080/Form", formData)
+      .post("http://localhost:8082/Form", formData)
       .then((res) => {
+        // Handle successful login
         if (res.data === "success") {
           navigate("/Task"); // Navigate to /Task on successful login
         } else {
           alert("No record exists");
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        alert("Login failed. Please check your credentials.");
+      });
   };
 
   return (
@@ -104,14 +109,12 @@ export default function Form() {
 
         <div className="mt-8 flex flex-col">
           {/* Sign In button */}
-          <Link to="/Task">
-            <Button
-              type="submit"
-              className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
-            >
-              Sign In
-            </Button>
-          </Link>
+          <Button
+            type="submit"
+            className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+          >
+            Sign In
+          </Button>
         </div>
 
         <div className="mt-8 flex justify-center items-center">
